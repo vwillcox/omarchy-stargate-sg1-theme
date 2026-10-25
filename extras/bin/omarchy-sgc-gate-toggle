@@ -1,0 +1,78 @@
+#!/bin/bash
+# Toggle the animated Stargate Command gate-room wallpaper (mpvpaper) for the
+# stargate-sg1 theme. Usage: omarchy-sgc-gate-toggle [on|off|toggle|restart]
+#
+# mpv listens on an IPC socket so the SGC bar can read the playback position
+# and keep its gate-status readout in step with the gate on screen.
+
+set -euo pipefail
+
+VIDEO="$HOME/.config/omarchy/themes/stargate-sg1/gate-loop.mp4"
+SOCKET="${XDG_RUNTIME_DIR:-/run/user/$UID}/sgc-gate.sock"
+MATCH="^mpvpaper .*gate-loop[.]mp4"
+ACTION="${1:-toggle}"
+GUARD_MATCH="^/bin/bash .*omarchy-video-wallpaper-guard omarchy-sgc-gate-toggle$"
+
+is_running() {
+  pgrep -f "$MATCH" >/dev/null 2>&1
+}
+
+stop_gate() {
+  if is_running; then
+    pkill -f "$MATCH" || true
+  fi
+}
+
+start_gate() {
+  if is_running; then
+    return
+  fi
+
+  if ! command -v mpvpaper >/dev/null 2>&1; then
+    omarchy-notification-send "mpvpaper isn't installed" \
+      "Run: omarchy pkg aur add mpvpaper" -t 5000 2>/dev/null || true
+    return
+  fi
+
+  if [[ ! -f $VIDEO ]]; then
+    omarchy-notification-send "Gate loop video missing" "$VIDEO" -t 5000 2>/dev/null || true
+    return
+  fi
+
+  # The dial cycle ends exactly where it began (the glyph ring makes one full
+  # turn), so plain loop-file is seamless; keep the whole file cached so the
+  # seek back to frame 0 never waits on disk.
+  nohup mpvpaper -o "loop-file=inf no-audio load-scripts=no hwdec=auto panscan=1.0 cache=yes demuxer-max-bytes=400MiB demuxer-max-back-bytes=400MiB input-ipc-server=$SOCKET" '*' "$VIDEO" \
+    >/dev/null 2>&1 &
+  disown
+}
+
+# Re-stacks the video above the shell's static background after monitor
+# hotplug (see omarchy-video-wallpaper-guard).
+start_guard() {
+  if ! pgrep -f "$GUARD_MATCH" >/dev/null 2>&1; then
+    nohup omarchy-video-wallpaper-guard omarchy-sgc-gate-toggle >/dev/null 2>&1 &
+    disown
+  fi
+}
+
+stop_guard() {
+  pkill -f "$GUARD_MATCH" || true
+}
+
+case "$ACTION" in
+  on) start_gate; start_guard ;;
+  off) stop_guard; stop_gate ;;
+  restart)
+    stop_gate
+    while is_running; do sleep 0.1; done
+    start_gate
+    ;;
+  toggle)
+    if is_running; then stop_guard; stop_gate; else start_gate; start_guard; fi
+    ;;
+  *)
+    echo "Usage: omarchy-sgc-gate-toggle [on|off|toggle|restart]" >&2
+    exit 1
+    ;;
+esac

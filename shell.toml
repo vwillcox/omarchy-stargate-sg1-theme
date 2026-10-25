@@ -1,0 +1,129 @@
+# Stargate SG-1 shell surfaces, after the SGC dialing-computer screens:
+# blue-black panels framed in event-horizon blue, chevron-amber selection,
+# klaxon red for errors. The bar itself is drawn by the vwillcox.sgc-bar
+# plugin (enabled by the theme-set hook); these tokens skin everything else.
+
+[bar]
+background       = "#04070A"
+background-alpha = 1.0
+text             = "#BFE3FF"
+active           = "#FF8A1E"
+scale-with-font  = true
+size-horizontal  = 32
+size-vertical    = 30
+
+[hyprland]
+active-border            = "rgba(3FA0FFEE) rgba(FF8A1EEE) 45deg"
+active-border-foreground = "#3FA0FF"
+
+[controls]
+normal-color        = "#C9D6E3"
+normal-fill-alpha   = 0.03
+normal-border       = "#3FA0FF"
+normal-border-width = 1
+normal-border-alpha = 0.45
+hover-cursor-color        = "#FFD27A"
+hover-cursor-fill-alpha   = 0.10
+hover-cursor-border       = "#F2B33D"
+hover-cursor-border-width = 1
+hover-cursor-border-alpha = 0.7
+focus-color        = "#FFD27A"
+focus-fill-alpha   = 0.10
+focus-border       = "#F2B33D"
+focus-border-width = 1
+focus-border-alpha = 0.7
+selected-color        = "#FF8A1E"
+selected-fill-alpha   = 0.16
+selected-border       = "#FF8A1E"
+selected-border-width = 1
+selected-border-alpha = 0.8
+pressed-fill-alpha   = 0.3
+selection-fill-alpha = 0.4
+
+[popups]
+background       = "#060A0F"
+background-alpha = 0.98
+text             = "#C9D6E3"
+border           = "rgba(3FA0FFEE) rgba(FF8A1EEE) 45deg"
+border-alpha     = 1.0
+border-width     = 2
+
+[tooltip]
+background       = "#060A0F"
+background-alpha = 0.97
+text             = "#BFE3FF"
+border           = "#3FA0FF"
+border-alpha     = 0.8
+
+[notifications]
+background       = "#060A0F"
+background-alpha = 0.97
+text             = "#C9D6E3"
+border           = "#3FA0FF"
+border-alpha     = 1.0
+border-width     = "1 1 1 6"
+countdown        = "#FF8A1E"
+
+[launcher]
+background                = "#060A0F"
+background-alpha          = 0.96
+text                      = "#C9D6E3"
+border                    = "rgba(3FA0FFEE) rgba(FF8A1EEE) 45deg"
+border-alpha              = 1.0
+border-width              = 2
+scrim                     = "#020406"
+scrim-alpha               = 0.55
+selected-background       = "#FF8A1E"
+selected-background-alpha = 0.16
+selected-text             = "#FFD27A"
+selected-border           = "#FF8A1E"
+selected-border-alpha     = 0.8
+
+[menu]
+background                = "#060A0F"
+background-alpha          = 0.98
+text                      = "#C9D6E3"
+border                    = "rgba(3FA0FFEE) rgba(FF8A1EEE) 45deg"
+border-alpha              = 1.0
+border-width              = 2
+scrim                     = "#020406"
+scrim-alpha               = 0.55
+selected-background       = "#FF8A1E"
+selected-background-alpha = 0.16
+selected-text             = "#FFD27A"
+selected-border           = "#FF8A1E"
+selected-border-alpha     = 0.8
+
+[polkit]
+background       = "#060A0F"
+background-alpha = 1.0
+text             = "#C9D6E3"
+text-error       = "#FF6B5E"
+border           = "#3FA0FF"
+border-error     = "#E0453A"
+border-alpha     = 1.0
+scrim            = "#020406"
+scrim-alpha      = 0.6
+accent           = "#FF8A1E"
+
+[lock]
+background       = "#04070A"
+background-alpha = 0.85
+text             = "#C9D6E3"
+placeholder      = "#4A5A6B"
+text-error       = "#FF6B5E"
+border           = "#3FA0FF"
+border-active    = "#FF8A1E"
+border-error     = "#E0453A"
+border-alpha     = 1.0
+selection        = "#3FA0FF"
+selection-alpha  = 0.45
+
+[image-picker]
+scrim                   = "#020406"
+scrim-alpha             = 0.6
+text                    = "#C9D6E3"
+selected-border         = "#FF8A1E"
+selected-border-alpha   = 1.0
+unselected-border       = "#3FA0FF"
+unselected-border-alpha = 0.4

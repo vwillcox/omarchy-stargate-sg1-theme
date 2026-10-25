@@ -1,0 +1,37 @@
+# Stargate SG-1 — Stargate Command. Gunmetal and blast-door blue-black, with
+# the event horizon's blue as the accent, chevron amber/orange for warnings and
+# highlights, and klaxon red for errors.
+mode = "dark"
+
+accent = "#3FA0FF"
+selection = "#173A5E"
+muted = "#4A5A6B"
+
+background = "#070B10"
+dark_background = "#04070A"
+darker_background = "#020406"
+lighter_background = "#0F1824"
+
+foreground = "#C9D6E3"
+dark_foreground = "#7F93A8"
+light_foreground = "#DCE6F0"
+bright_foreground = "#F2F7FC"
+
+red = "#E0453A"
+yellow = "#F2B33D"
+orange = "#FF8A1E"
+green = "#5FC48A"
+cyan = "#5CC8FF"
+blue = "#3F7FE0"
+magenta = "#A98BE0"
+brown = "#B5651D"
+
+bright_red = "#FF6B5E"
+bright_yellow = "#FFD27A"
+bright_green = "#8FE3B0"
+bright_cyan = "#9BE0FF"
+bright_blue = "#7FB2FF"
+bright_magenta = "#C9B3F5"
+
+hyprland_active_border = "rgba(3FA0FFEE) rgba(FF8A1EEE) 45deg"
+hyprland_inactive_border = "rgba(2A3A4C99)"
