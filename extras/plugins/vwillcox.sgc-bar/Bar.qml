@@ -1570,6 +1570,7 @@ Item {
           height: sgcRow.bh
           width: Math.max(0, (gateStatus.visible ? gateStatus.x : centerMods.leftEdge) - sgcRow.g * 2 - x)
           text: "CHEYENNE MOUNTAIN COMPLEX  ·  LEVEL 28"
+          shortText: "SGC  ·  LEVEL 28"
         }
 
         // gate-status readout, docked to the left of the centre group
@@ -1644,6 +1645,7 @@ Item {
           height: sgcRow.bh
           width: Math.max(0, rightMods.x - sgcRow.g * 2 - x)
           text: "DESTINATION ABYDOS  ·  27 07 15 32 12 30"
+          shortText: "DESTINATION ABYDOS"
         }
       }
     }
@@ -2500,15 +2502,25 @@ Item {
     textFormat: Text.PlainText
   }
 
-  // Console rail: a scale line with tick marks and a legend set into it.
+  // Console rail: a scale line with tick marks and a legend set into it; the
+  // short legend stands in when the long one doesn't fit (16:9 screens).
   component SgcRail: Item {
     id: rail
     property string text: ""
+    property string shortText: ""
+
+    TextMetrics {
+      id: railLong
+      font: railText.font
+      text: rail.text
+    }
 
     Text {
       id: railText
-      text: rail.text
-      visible: rail.width > implicitWidth + 120
+      text: rail.width > railLong.advanceWidth + 80 ? rail.text : rail.shortText
+      visible: text !== "" && rail.width > implicitWidth + 80
+      onVisibleChanged: railCanvas.requestPaint()
+      onTextChanged: railCanvas.requestPaint()
       anchors.centerIn: parent
       font.family: root.sgcFont
       font.pixelSize: 9
@@ -2522,6 +2534,11 @@ Item {
       id: railCanvas
       anchors.fill: parent
       visible: rail.width > 24
+      // A bar created on a newly plugged-in screen starts at width 0, and a
+      // paint requested before the canvas is available is dropped, leaving
+      // uninitialised texture memory on screen; paint again once it is.
+      onAvailableChanged: if (available) requestPaint()
+      onVisibleChanged: if (visible) requestPaint()
       onWidthChanged: requestPaint()
       onHeightChanged: requestPaint()
       onPaint: {
